@@ -72,6 +72,8 @@
             position: relative; z-index: 20;
             margin-bottom: 100px;
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 80vh; overflow-y: auto; 
+            scroll-behavior: smooth; 
         }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
 
@@ -85,16 +87,11 @@
             text-align: left;
         }
         
-        /* CSS CHO PHẦN CHỮ ĐẶC BIỆT KHI VIẾT RA */
         .highlight-text {
-            display: block; /* Xuống dòng */
-            text-align: center; /* CĂN GIỮA - YÊU CẦU MỚI */
-            font-size: 26px; /* Chữ to hơn */
-            font-weight: bold; 
-            color: #d00000; 
-            font-style: italic; 
-            margin-top: 15px; 
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+            display: block; text-align: center; 
+            font-size: 26px; font-weight: bold; 
+            color: #d00000; font-style: italic; 
+            margin-top: 15px; text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
         }
 
         .writing-pen {
@@ -107,8 +104,30 @@
             100% { transform: rotate(15deg) translateY(-5px); }
         }
 
+        /* --- CSS MỚI CHO PHẦN ẢNH VÀ CAPTION --- */
+        #extra-image-container {
+            display: none; margin-bottom: 20px;
+            animation: fadeInImage 1s ease-in-out;
+        }
+        .my-custom-img {
+            width: 100%; max-width: 280px;
+            border-radius: 10px; border: 3px solid #d00000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: block; margin: 0 auto;
+        }
+        .img-caption {
+            color: #d00000; font-size: 16px;
+            font-weight: bold; font-style: italic;
+            margin-top: 10px; text-shadow: 0px 0px 1px rgba(255, 215, 0, 0.8);
+        }
+        @keyframes fadeInImage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .btn-lucky {
-            display: inline-block; padding: 12px 30px;
+            display: none; /* Mặc định ẩn */
+            padding: 12px 30px;
             background: linear-gradient(to right, #ffd700, #fdb931);
             color: #d00000; font-weight: bold; border-radius: 50px;
             border: 2px solid #fff; cursor: pointer;
@@ -126,6 +145,8 @@
             z-index: 2000;
             justify-content: center; align-items: center; flex-direction: column;
             animation: fadeIn 0.5s;
+            /* Thêm thanh cuộn nếu màn hình dọc quá ngắn */
+            overflow-y: auto; padding: 20px 0;
         }
         
         .btn-close-qr {
@@ -133,6 +154,7 @@
             color: #fff; font-size: 40px; cursor: pointer;
             opacity: 0.8; transition: 0.3s;
             text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 2001;
         }
         .btn-close-qr:hover { opacity: 1; transform: scale(1.1); }
 
@@ -140,6 +162,7 @@
             color: #ffd700; font-size: 28px; font-weight: bold; 
             margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            margin-top: 50px; /* Tránh bị nút close che */
         }
 
         .qr-img-large {
@@ -151,7 +174,7 @@
 
         .qr-note {
             color: #fff; font-style: italic; font-size: 16px;
-            margin-bottom: 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            margin-bottom: 20px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
         .btn-download-bottom {
@@ -163,6 +186,34 @@
             transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .btn-download-bottom:hover { transform: scale(1.05); background: #b30000; }
+
+        /* --- STYLES MỚI CHO LỜI NHẮN CUỐI CÙNG --- */
+        .final-message {
+            margin-top: 30px;
+            margin-bottom: 50px;
+            font-style: italic;
+            color: #fff;
+            font-size: 15px;
+            max-width: 85%;
+            line-height: 1.6;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            
+            /* Giao diện khung note */
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed #ffd700;
+            padding: 15px 20px;
+            border-radius: 15px;
+            
+            /* Animation */
+            opacity: 0;
+            animation: fadeMsg 2s ease-in-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeMsg {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* --- 7. MÀN HÌNH CHỜ (XÓC THẺ) --- */
         #shakingModal {
@@ -297,10 +348,14 @@
         <div class="btn-close-qr" onclick="closeQR()">×</div>
         <div class="qr-title-large">Lì xì may mắn</div>
         <img src="qr-viettel.jpg" alt="QR Code" class="qr-img-large">
-        <div class="qr-note">(Quét bằng APP Viettel Money nha)</div>
+        <div class="qr-note">(Quét bằng APP ZaloPay nha)</div>
         <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-bottom">
             <span>⬇️</span> Tải mã QR về
         </a>
+        
+        <div class="final-message">
+            "A đã dành cả ngày hôm nay để thực hiện những dòng code này với hy vọng e sẽ thích nó. Mọi muộn phiền của năm cũ hãy cho qua hết e nhé, để đón những điều mới mẻ trong năm nay. Chúc e ngủ ngon!"
+        </div>
     </div>
 
     <div id="soundBtn" class="sound-control" onclick="toggleSound(event)">🔇</div>
@@ -326,7 +381,12 @@
             <span id="writing-pen" class="writing-pen">🖌️</span>
         </div>
 
-        <div class="btn-lucky" onclick="startShaking()">
+        <div id="extra-image-container">
+            <img src="nam.jpg" alt="Mạnh mẽ như ngựa" class="my-custom-img">
+            <div class="img-caption">Hãy luôn mạnh mẽ như 1 chú ngựa và tiến về phía trước nha</div>
+        </div>
+
+        <div id="btnLucky" class="btn-lucky" onclick="startShaking()">
             ✨ Rút Quẻ Lộc Đầu Năm 🧧
         </div>
     </div>
@@ -341,9 +401,7 @@
         var isPlaying = false;
 
         // --- CẤU HÌNH NỘI DUNG 2 PHẦN ---
-        // Phần 1: Chữ bình thường
         const textPart1 = "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi! Anh xin lỗi em nhiều !!!";
-        // Phần 2: Chữ to, đỏ, đậm, căn giữa
         const textPart2 = "2026 - Thành công rực rỡ";
         
         const typeSpeed = 50; 
@@ -382,8 +440,6 @@
             playAudioForce();
             document.getElementById('envelope').style.display = 'none';
             document.getElementById('content').style.display = 'block';
-            
-            // Bắt đầu chạy chữ
             typeWriter();
         }
 
@@ -391,42 +447,42 @@
             const container = document.getElementById("type-text");
             const pen = document.getElementById("writing-pen");
 
-            // Giai đoạn 1: Viết chữ thường
             if (!isTypingPart2) {
                 if (charIndex < textPart1.length) {
                     container.innerHTML += textPart1.charAt(charIndex);
                     charIndex++;
                     setTimeout(typeWriter, typeSpeed);
                 } else {
-                    // Hết phần 1 -> Chuyển sang phần 2
                     isTypingPart2 = true;
                     charIndex = 0; 
-                    
-                    // Tạo span mới cho phần 2
                     const newSpan = document.createElement("span");
                     newSpan.className = "highlight-text"; 
                     newSpan.id = "highlight-span";
                     container.appendChild(newSpan); 
-                    
-                    // Di chuyển bút vào trong span mới để nó chạy theo chữ căn giữa
                     newSpan.appendChild(pen);
-                    
                     setTimeout(typeWriter, typeSpeed);
                 }
             } 
-            // Giai đoạn 2: Viết chữ to đỏ căn giữa
             else {
                 const highlightSpan = document.getElementById("highlight-span");
                 if (charIndex < textPart2.length) {
                     const char = textPart2.charAt(charIndex);
                     const textNode = document.createTextNode(char);
-                    // Chèn chữ vào trước cây bút
                     highlightSpan.insertBefore(textNode, pen);
                     charIndex++;
                     setTimeout(typeWriter, typeSpeed);
                 } else {
-                    // Viết xong -> Ẩn bút
                     pen.style.display = "none";
+                    
+                    const imgContainer = document.getElementById("extra-image-container");
+                    imgContainer.style.display = "block";
+
+                    const btnLucky = document.getElementById("btnLucky");
+                    btnLucky.style.display = "inline-block";
+
+                    setTimeout(() => {
+                        imgContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }, 100);
                 }
             }
         }
