@@ -15,48 +15,38 @@
             overflow: hidden; text-align: center; color: white;
         }
 
-        /* --- 2. NGỰA PHI (LAYER DƯỚI CÙNG NHƯNG KHÔNG BỊ CHE) --- */
+        /* --- 2. NGỰA PHI --- */
         .horse-container {
-            position: absolute; 
-            bottom: 10px; /* Chạy sát đáy màn hình */
-            left: -300px;
+            position: absolute; bottom: 10px; left: -300px;
             z-index: 15; pointer-events: none;
             display: flex; gap: -20px;
             animation: runAcross 10s linear infinite;
         }
         .horse-unit {
-            font-size: 60px; /* Giảm nhẹ size để chạy mượt hơn */
-            display: inline-block;
+            font-size: 60px; display: inline-block;
             transform: scaleX(-1);
             filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
         }
         .galloping { animation: gallop 0.6s ease-in-out infinite alternate; }
-        
         .horse-red { filter: hue-rotate(-50deg) saturate(2) drop-shadow(5px 5px 5px rgba(0,0,0,0.5)); }
         .horse-gold { filter: hue-rotate(45deg) saturate(3) brightness(1.2) drop-shadow(5px 5px 5px rgba(0,0,0,0.5)); animation-delay: 0.1s; }
         .horse-brown { animation-delay: 0.2s; }
-
         @keyframes runAcross { 0% { left: -300px; } 100% { left: 110vw; } }
-        @keyframes gallop {
-            0% { transform: scaleX(-1) translateY(0) rotate(0deg); }
-            100% { transform: scaleX(-1) translateY(-20px) rotate(5deg); }
-        }
+        @keyframes gallop { 0% { transform: scaleX(-1) translateY(0) rotate(0deg); } 100% { transform: scaleX(-1) translateY(-20px) rotate(5deg); } }
 
         /* --- 3. NÚT LOA --- */
         .sound-control {
             position: fixed; top: 20px; right: 20px;
             width: 40px; height: 40px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #ffd700; border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5); border: 2px solid #ffd700; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             font-size: 20px; cursor: pointer; z-index: 100;
-            transition: transform 0.2s;
-            animation: pulse-btn 2s infinite;
+            transition: transform 0.2s; animation: pulse-btn 2s infinite;
         }
         .sound-control:hover { transform: scale(1.1); background: rgba(0, 0, 0, 0.8); }
         @keyframes pulse-btn { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
 
-        /* --- 4. BAO LÌ XÌ (GIAO DIỆN ĐẦU) --- */
+        /* --- 4. BAO LÌ XÌ --- */
         #envelope {
             width: 280px; height: 400px;
             background: linear-gradient(to bottom, #b30000, #e60000);
@@ -65,7 +55,6 @@
             justify-content: center; align-items: center;
             box-shadow: 0 10px 50px rgba(0,0,0,0.7);
             transition: transform 0.3s; z-index: 20; position: relative;
-            /* Đẩy bao lì xì lên cao một chút để hở chân cho ngựa chạy nền */
             margin-bottom: 80px; 
         }
         #envelope:hover { transform: scale(1.05); }
@@ -74,62 +63,89 @@
         .click-hint { font-size: 18px; font-weight: bold; margin-top: 10px; animation: blink 1.5s infinite; }
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        /* --- 5. POPUP NỘI DUNG (ĐÃ CHỈNH SỬA VỊ TRÍ) --- */
+        /* --- 5. POPUP NỘI DUNG --- */
         #content {
             display: none; background: #fffaf0;
-            padding: 25px 20px; border-radius: 20px;
+            padding: 20px; border-radius: 20px;
             box-shadow: 0 0 60px rgba(255, 204, 0, 0.9);
             width: 360px; max-width: 90%;
             border: 3px solid #d41414;
             position: relative; z-index: 20;
-            
-            /* QUAN TRỌNG: Đẩy Popup lên trên để không che đường chạy của ngựa ở dưới */
-            margin-bottom: 120px; 
-            
+            margin-bottom: 100px; /* Đẩy lên cao để tránh ngựa */
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
 
         h1.title-tet { color: #d00000; font-size: 22px; font-weight: bold; margin-bottom: 5px; }
-        .horse-icons-top { font-size: 28px; margin: 5px 0; } /* Icon ngựa trang trí trong popup */
+        .horse-icons-top { font-size: 28px; margin: 0px 0 10px 0; }
         .wishes { 
-            font-size: 15px; line-height: 1.5; color: #333; font-style: italic; font-weight: 600; 
-            background: #fff; padding: 10px; border-radius: 10px; border: 1px dashed #d00000; margin: 10px 0; 
+            font-size: 14px; line-height: 1.5; color: #333; font-style: italic; font-weight: 600; 
+            background: #fff; padding: 10px; border-radius: 10px; border: 1px dashed #d00000; margin-bottom: 10px;
         }
 
-        /* --- 6. KHU VỰC QR CODE & DOWNLOAD MỚI --- */
-        .qr-section-title { color: #d00000; font-weight: bold; margin-top: 10px; font-size: 16px; }
-        
-        .qr-wrapper {
-            position: relative; display: inline-block;
-            margin-top: 10px;
-        }
-        
-        /* Ảnh QR: Thêm hiệu ứng cursor pointer để biết là bấm được */
-        .qr-img { 
-            width: 160px; height: 160px; 
-            border: 3px solid #ffcc00; border-radius: 10px; 
-            cursor: zoom-in; /* Con trỏ hình kính lúp */
+        /* --- NÚT XIN LỘC (MỚI) --- */
+        .btn-lucky {
+            display: inline-block; padding: 8px 20px;
+            background: linear-gradient(to right, #ffd700, #fdb931);
+            color: #d00000; font-weight: bold; border-radius: 50px;
+            border: 2px solid #fff; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+            margin-bottom: 15px; font-size: 14px;
             transition: transform 0.2s;
-            background: white; /* Tránh bị trong suốt */
+        }
+        .btn-lucky:hover { transform: scale(1.05); }
+
+        /* --- QR CODE & DOWNLOAD (ĐÃ SỬA VỊ TRÍ) --- */
+        .qr-section-title { color: #d00000; font-weight: bold; margin-top: 5px; font-size: 16px; }
+        .qr-wrapper {
+            position: relative; display: flex; justify-content: center; align-items: center;
+            margin-top: 10px; gap: 15px; /* Khoảng cách giữa QR và nút tải */
+        }
+        .qr-img { 
+            width: 140px; height: 140px; 
+            border: 3px solid #ffcc00; border-radius: 10px; 
+            cursor: zoom-in; transition: transform 0.2s; background: white;
         }
         .qr-img:hover { transform: scale(1.02); }
         
-        /* Nút Download nhỏ (Icon) */
-        .btn-download-icon {
-            position: absolute;
-            bottom: -10px; right: -10px; /* Treo ở góc phải dưới ảnh */
-            width: 35px; height: 35px;
+        /* Nút Download nằm bên cạnh */
+        .btn-download-side {
+            width: 40px; height: 40px;
             background: #d00000; color: #fff;
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            text-decoration: none; font-size: 18px;
+            text-decoration: none; font-size: 20px;
             border: 2px solid #fff;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
             transition: transform 0.2s;
         }
-        .btn-download-icon:hover { transform: scale(1.2); background: #ff0000; }
+        .btn-download-side:hover { transform: scale(1.1); background: #ff0000; }
         .click-zoom-hint { font-size: 11px; color: #888; margin-top: 5px; font-style: italic; }
+
+        /* --- MODAL XIN LỘC (THẺ MAY MẮN) --- */
+        #luckyModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); z-index: 1000;
+            justify-content: center; align-items: center;
+            animation: fadeIn 0.3s;
+        }
+        .lucky-card {
+            background: #fff; width: 320px; padding: 20px; border-radius: 15px;
+            text-align: center; border: 4px solid #ffd700;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
+            position: relative;
+            background-image: url('data:image/svg+xml,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%23ffd700" opacity="0.3"/></svg>');
+        }
+        .lucky-title { color: #d00000; font-size: 24px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
+        .lucky-badge { 
+            display: inline-block; background: #d00000; color: #ffd700; 
+            padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 15px;
+        }
+        .lucky-text { font-size: 15px; color: #333; line-height: 1.6; margin-bottom: 20px; }
+        .btn-close-lucky {
+            background: #333; color: #fff; border: none; padding: 8px 20px;
+            border-radius: 5px; cursor: pointer; font-weight: bold;
+        }
 
         /* --- 7. LIGHTBOX (PHÓNG TO ẢNH) --- */
         #lightbox {
@@ -138,13 +154,8 @@
             justify-content: center; align-items: center; flex-direction: column;
             animation: fadeIn 0.3s;
         }
-        #lightbox img {
-            max-width: 90%; max-height: 80%;
-            border: 2px solid white; border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
+        #lightbox img { max-width: 90%; max-height: 80%; border: 2px solid white; border-radius: 10px; }
         #lightbox .close-hint { color: white; margin-top: 15px; font-size: 14px; opacity: 0.8; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- 8. HIỆU ỨNG NỀN --- */
         .flower { position: absolute; top: -10vh; z-index: 10; pointer-events: none; opacity: 0.8; }
@@ -152,6 +163,7 @@
         .firework-particle { position: absolute; border-radius: 50%; animation: realistic-burst 1.2s ease-out forwards, twinkle 0.2s infinite alternate; }
         @keyframes realistic-burst { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 60% { transform: translate(var(--x), var(--y)) scale(0.8); opacity: 0.8; } 100% { transform: translate(var(--x), calc(var(--y) + 100px)) scale(0.4); opacity: 0; } }
         @keyframes twinkle { from { opacity: 1; } to { opacity: 0.7; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 
@@ -160,6 +172,20 @@
     <div id="lightbox" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="QR Full Size">
         <div class="close-hint">Chạm vào màn hình để đóng</div>
+    </div>
+
+    <div id="luckyModal" onclick="closeLucky()">
+        <div class="lucky-card" onclick="event.stopPropagation()"> <div class="lucky-title">Quẻ Đầu Năm</div>
+            <div class="lucky-badge">Thượng Thượng Cát</div>
+            <div class="lucky-text">
+                <b>🌸 Sự Nghiệp:</b> Như diều gặp gió, quý nhân phù trợ.<br>
+                <b>❤️ Tình Duyên:</b> Viên mãn, ngọt ngào, thấu hiểu.<br>
+                <b>✨ Tài Lộc:</b> Sung túc, tiền vào như nước.<br>
+                <br>
+                <i>"Năm nay Bính Ngọ đại thành công<br>Vạn sự an nhiên, thỏa ước mong!"</i>
+            </div>
+            <button class="btn-close-lucky" onclick="closeLucky()">Nhận Lộc 🙏</button>
+        </div>
     </div>
 
     <div id="soundBtn" class="sound-control" onclick="toggleSound(event)">🔇</div>
@@ -184,12 +210,18 @@
             "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi"
         </div>
 
+        <div class="btn-lucky" onclick="openLucky()">
+            ✨ Rút Quẻ Lộc Đầu Năm 🧧
+        </div>
+
+        <div style="border-top: 1px dashed #ffcc00; margin: 10px 0;"></div>
+
         <div class="qr-section-title">Lì xì may mắn đầu xuân nha</div>
         
         <div class="qr-wrapper">
             <img src="qr-viettel.jpg" alt="QR Code" class="qr-img" onclick="openLightbox(event)">
             
-            <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-icon" title="Tải mã QR">
+            <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-side" title="Tải mã QR">
                 ⬇️
             </a>
         </div>
@@ -209,35 +241,26 @@
             setInterval(createFlower, 350);
             setInterval(createFirework, 800);
             music.play().then(() => { 
-                isPlaying = true; 
-                updateSoundIcon(true);
+                isPlaying = true; updateSoundIcon(true);
             }).catch(() => {
                 updateSoundIcon(false);
             });
         };
 
         function updateSoundIcon(playing) {
-            if (playing) {
-                soundBtn.innerHTML = '🔊'; soundBtn.style.animation = 'none';
-            } else {
-                soundBtn.innerHTML = '🔇'; soundBtn.style.animation = 'pulse-btn 2s infinite';
-            }
+            if (playing) { soundBtn.innerHTML = '🔊'; soundBtn.style.animation = 'none'; } 
+            else { soundBtn.innerHTML = '🔇'; soundBtn.style.animation = 'pulse-btn 2s infinite'; }
         }
 
         function toggleSound(event) {
             event.stopPropagation();
-            if (music.paused) {
-                music.play(); isPlaying = true; updateSoundIcon(true);
-            } else {
-                music.pause(); isPlaying = false; updateSoundIcon(false);
-            }
+            if (music.paused) { music.play(); isPlaying = true; updateSoundIcon(true); } 
+            else { music.pause(); isPlaying = false; updateSoundIcon(false); }
         }
 
         function playAudioForce() {
             if (music.paused) {
-                music.play().then(() => {
-                    isPlaying = true; updateSoundIcon(true);
-                }).catch((e) => console.log(e));
+                music.play().then(() => { isPlaying = true; updateSoundIcon(true); }).catch((e) => console.log(e));
             }
         }
 
@@ -247,22 +270,20 @@
             document.getElementById('content').style.display = 'block';
         }
 
-        // --- HÀM LIGHTBOX (PHÓNG TO QR) ---
+        // --- XỬ LÝ LIGHTBOX ---
         function openLightbox(event) {
-            event.stopPropagation(); // Ngăn click lan ra body
+            event.stopPropagation();
             var imgSrc = document.querySelector('.qr-img').src;
-            var lightbox = document.getElementById('lightbox');
-            var lightboxImg = document.getElementById('lightbox-img');
-            
-            lightboxImg.src = imgSrc;
-            lightbox.style.display = 'flex';
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox').style.display = 'flex';
         }
+        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
+        // --- XỬ LÝ QUẺ LỘC ---
+        function openLucky() { document.getElementById('luckyModal').style.display = 'flex'; }
+        function closeLucky() { document.getElementById('luckyModal').style.display = 'none'; }
 
-        // --- HIỆU ỨNG HOA & PHÁO ---
+        // --- HIỆU ỨNG ---
         function createFlower() {
             const flower = document.createElement('div');
             flower.className = 'flower';
@@ -284,10 +305,8 @@
             shell.style.left = Math.random() * 90 + 5 + 'vw';
             shell.style.top = Math.random() * 60 + 10 + 'vh';
             document.body.appendChild(shell);
-
             const colors = ['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#ff00ff', '#ffaa00', '#ffffff'];
             const color = colors[Math.floor(Math.random() * colors.length)];
-            
             for (let i = 0; i < 50; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'firework-particle';
@@ -295,12 +314,10 @@
                 const size = Math.random() * 3 + 2 + 'px';
                 particle.style.width = size; particle.style.height = size;
                 particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
-                
                 const angle = (i / 50) * 360 * (Math.PI / 180);
                 const distance = Math.random() * 200 + 50;
                 const x = Math.cos(angle) * distance + 'px';
                 const y = Math.sin(angle) * distance + 'px';
-                
                 particle.style.setProperty('--x', x); particle.style.setProperty('--y', y);
                 shell.appendChild(particle);
             }
