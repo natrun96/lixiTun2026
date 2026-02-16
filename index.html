@@ -6,7 +6,7 @@
     <title>Chúc Mừng Năm Mới 2026</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧧</text></svg>">
     <style>
-        /* --- 1. CẤU HÌNH NỀN --- */
+        /* --- 1. CẤU HÌNH CHUNG --- */
         body {
             margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
             height: 100vh;
@@ -15,15 +15,18 @@
             overflow: hidden; text-align: center; color: white;
         }
 
-        /* --- 2. BỘ 3 NGỰA PHI --- */
+        /* --- 2. NGỰA PHI (LAYER DƯỚI CÙNG NHƯNG KHÔNG BỊ CHE) --- */
         .horse-container {
-            position: absolute; bottom: 30px; left: -300px;
+            position: absolute; 
+            bottom: 10px; /* Chạy sát đáy màn hình */
+            left: -300px;
             z-index: 15; pointer-events: none;
             display: flex; gap: -20px;
             animation: runAcross 10s linear infinite;
         }
         .horse-unit {
-            font-size: 70px; display: inline-block;
+            font-size: 60px; /* Giảm nhẹ size để chạy mượt hơn */
+            display: inline-block;
             transform: scaleX(-1);
             filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
         }
@@ -36,60 +39,114 @@
         @keyframes runAcross { 0% { left: -300px; } 100% { left: 110vw; } }
         @keyframes gallop {
             0% { transform: scaleX(-1) translateY(0) rotate(0deg); }
-            100% { transform: scaleX(-1) translateY(-25px) rotate(5deg); }
+            100% { transform: scaleX(-1) translateY(-20px) rotate(5deg); }
         }
 
-        /* --- 3. NÚT LOA (MỚI) --- */
+        /* --- 3. NÚT LOA --- */
         .sound-control {
             position: fixed; top: 20px; right: 20px;
-            width: 45px; height: 45px;
-            background: rgba(0, 0, 0, 0.5); /* Nền đen bán trong suốt */
-            border: 2px solid #ffd700;
-            border-radius: 50%;
+            width: 40px; height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #ffd700; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            font-size: 24px; cursor: pointer; z-index: 100;
+            font-size: 20px; cursor: pointer; z-index: 100;
             transition: transform 0.2s;
-            animation: pulse-btn 2s infinite; /* Nhấp nháy nhẹ để gây chú ý */
+            animation: pulse-btn 2s infinite;
         }
         .sound-control:hover { transform: scale(1.1); background: rgba(0, 0, 0, 0.8); }
         @keyframes pulse-btn { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
 
-        /* --- 4. BAO LÌ XÌ --- */
+        /* --- 4. BAO LÌ XÌ (GIAO DIỆN ĐẦU) --- */
         #envelope {
             width: 280px; height: 400px;
             background: linear-gradient(to bottom, #b30000, #e60000);
-            border: 4px solid #ffd700;
-            border-radius: 20px; cursor: pointer; display: flex; flex-direction: column;
+            border: 4px solid #ffd700; border-radius: 20px;
+            cursor: pointer; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             box-shadow: 0 10px 50px rgba(0,0,0,0.7);
             transition: transform 0.3s; z-index: 20; position: relative;
+            /* Đẩy bao lì xì lên cao một chút để hở chân cho ngựa chạy nền */
+            margin-bottom: 80px; 
         }
         #envelope:hover { transform: scale(1.05); }
-        
         .envelope-icon { font-size: 80px; margin-bottom: -10px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3)); }
         .year-text { font-size: 50px; font-weight: 900; color: #ffd700; text-shadow: 3px 3px 0px #8b0000; font-family: 'Arial Black', sans-serif; margin-bottom: 10px; }
         .click-hint { font-size: 18px; font-weight: bold; margin-top: 10px; animation: blink 1.5s infinite; }
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        /* --- 5. NỘI DUNG SAU KHI MỞ --- */
+        /* --- 5. POPUP NỘI DUNG (ĐÃ CHỈNH SỬA VỊ TRÍ) --- */
         #content {
             display: none; background: #fffaf0;
-            padding: 30px 20px; border-radius: 20px;
+            padding: 25px 20px; border-radius: 20px;
             box-shadow: 0 0 60px rgba(255, 204, 0, 0.9);
-            max-width: 90%; width: 380px;
+            width: 360px; max-width: 90%;
+            border: 3px solid #d41414;
+            position: relative; z-index: 20;
+            
+            /* QUAN TRỌNG: Đẩy Popup lên trên để không che đường chạy của ngựa ở dưới */
+            margin-bottom: 120px; 
+            
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 20; color: #b30000; position: relative; border: 3px solid #d41414;
         }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
 
-        h1.title-tet { color: #d00000; font-size: 24px; font-weight: bold; margin-bottom: 5px; }
-        .horse-icons { font-size: 30px; margin: 5px 0; }
-        .wishes { font-size: 16px; line-height: 1.5; color: #333; font-style: italic; font-weight: 600; background: #fff; padding: 12px; border-radius: 10px; border: 1px dashed #d00000; margin: 15px 0; }
-        .qr-section-title { color: #d00000; font-weight: bold; margin-top: 15px; font-size: 18px; }
-        .qr-img { width: 180px; height: 180px; border: 3px solid #ffcc00; border-radius: 10px; margin: 10px 0; }
-        .btn-download { display: inline-block; padding: 10px 20px; background: #d00000; color: #fff; text-decoration: none; font-weight: bold; border-radius: 50px; margin-top: 5px; border: 2px solid #ffcc00; }
+        h1.title-tet { color: #d00000; font-size: 22px; font-weight: bold; margin-bottom: 5px; }
+        .horse-icons-top { font-size: 28px; margin: 5px 0; } /* Icon ngựa trang trí trong popup */
+        .wishes { 
+            font-size: 15px; line-height: 1.5; color: #333; font-style: italic; font-weight: 600; 
+            background: #fff; padding: 10px; border-radius: 10px; border: 1px dashed #d00000; margin: 10px 0; 
+        }
 
-        /* --- 6. HIỆU ỨNG --- */
+        /* --- 6. KHU VỰC QR CODE & DOWNLOAD MỚI --- */
+        .qr-section-title { color: #d00000; font-weight: bold; margin-top: 10px; font-size: 16px; }
+        
+        .qr-wrapper {
+            position: relative; display: inline-block;
+            margin-top: 10px;
+        }
+        
+        /* Ảnh QR: Thêm hiệu ứng cursor pointer để biết là bấm được */
+        .qr-img { 
+            width: 160px; height: 160px; 
+            border: 3px solid #ffcc00; border-radius: 10px; 
+            cursor: zoom-in; /* Con trỏ hình kính lúp */
+            transition: transform 0.2s;
+            background: white; /* Tránh bị trong suốt */
+        }
+        .qr-img:hover { transform: scale(1.02); }
+        
+        /* Nút Download nhỏ (Icon) */
+        .btn-download-icon {
+            position: absolute;
+            bottom: -10px; right: -10px; /* Treo ở góc phải dưới ảnh */
+            width: 35px; height: 35px;
+            background: #d00000; color: #fff;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none; font-size: 18px;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .btn-download-icon:hover { transform: scale(1.2); background: #ff0000; }
+        .click-zoom-hint { font-size: 11px; color: #888; margin-top: 5px; font-style: italic; }
+
+        /* --- 7. LIGHTBOX (PHÓNG TO ẢNH) --- */
+        #lightbox {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); z-index: 999;
+            justify-content: center; align-items: center; flex-direction: column;
+            animation: fadeIn 0.3s;
+        }
+        #lightbox img {
+            max-width: 90%; max-height: 80%;
+            border: 2px solid white; border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        #lightbox .close-hint { color: white; margin-top: 15px; font-size: 14px; opacity: 0.8; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- 8. HIỆU ỨNG NỀN --- */
         .flower { position: absolute; top: -10vh; z-index: 10; pointer-events: none; opacity: 0.8; }
         .firework-shell { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 5; }
         .firework-particle { position: absolute; border-radius: 50%; animation: realistic-burst 1.2s ease-out forwards, twinkle 0.2s infinite alternate; }
@@ -100,8 +157,12 @@
 
 <body onclick="playAudioForce()">
 
-    <div id="soundBtn" class="sound-control" onclick="toggleSound(event)">
-        🔇 </div>
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="QR Full Size">
+        <div class="close-hint">Chạm vào màn hình để đóng</div>
+    </div>
+
+    <div id="soundBtn" class="sound-control" onclick="toggleSound(event)">🔇</div>
 
     <div class="horse-container">
         <div class="horse-unit horse-red galloping">🐎</div>
@@ -117,18 +178,22 @@
 
     <div id="content">
         <h1 class="title-tet">Chúc Mừng Năm Mới 2026!</h1>
-        <div class="horse-icons">🐎 🐎 🐎</div>
+        <div class="horse-icons-top">🐎 🐎 🐎</div>
         
         <div class="wishes">
             "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi"
         </div>
 
         <div class="qr-section-title">Lì xì may mắn đầu xuân nha</div>
-        <img src="qr-viettel.jpg" alt="QR Code" class="qr-img">
-        <br>
-        <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download">
-            ⬇️ Tải ảnh về máy
-        </a>
+        
+        <div class="qr-wrapper">
+            <img src="qr-viettel.jpg" alt="QR Code" class="qr-img" onclick="openLightbox(event)">
+            
+            <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-icon" title="Tải mã QR">
+                ⬇️
+            </a>
+        </div>
+        <div class="click-zoom-hint">(Chạm vào ảnh để phóng to)</div>
     </div>
 
     <audio id="tetMusic" loop>
@@ -143,47 +208,35 @@
         window.onload = function() {
             setInterval(createFlower, 350);
             setInterval(createFirework, 800);
-            // Cố gắng phát nhạc (thường sẽ bị chặn và rơi vào catch)
             music.play().then(() => { 
                 isPlaying = true; 
-                updateSoundIcon(true); // Nếu tự phát được thì đổi icon luôn
+                updateSoundIcon(true);
             }).catch(() => {
-                updateSoundIcon(false); // Nếu bị chặn thì hiện icon tắt tiếng
+                updateSoundIcon(false);
             });
         };
 
-        // Hàm cập nhật icon loa
         function updateSoundIcon(playing) {
             if (playing) {
-                soundBtn.innerHTML = '🔊'; // Loa đang phát
-                soundBtn.style.animation = 'none'; // Tắt nhấp nháy
+                soundBtn.innerHTML = '🔊'; soundBtn.style.animation = 'none';
             } else {
-                soundBtn.innerHTML = '🔇'; // Loa tắt
-                soundBtn.style.animation = 'pulse-btn 2s infinite'; // Bật nhấp nháy
+                soundBtn.innerHTML = '🔇'; soundBtn.style.animation = 'pulse-btn 2s infinite';
             }
         }
 
-        // Hàm xử lý khi bấm vào Nút Loa
         function toggleSound(event) {
-            event.stopPropagation(); // Ngăn không cho sự kiện click lan ra body (để tránh xung đột)
-            
+            event.stopPropagation();
             if (music.paused) {
-                music.play();
-                isPlaying = true;
-                updateSoundIcon(true);
+                music.play(); isPlaying = true; updateSoundIcon(true);
             } else {
-                music.pause();
-                isPlaying = false;
-                updateSoundIcon(false);
+                music.pause(); isPlaying = false; updateSoundIcon(false);
             }
         }
 
-        // Hàm xử lý khi bấm BẤT KỲ ĐÂU trên màn hình (để phát nhạc lần đầu)
         function playAudioForce() {
             if (music.paused) {
                 music.play().then(() => {
-                    isPlaying = true;
-                    updateSoundIcon(true);
+                    isPlaying = true; updateSoundIcon(true);
                 }).catch((e) => console.log(e));
             }
         }
@@ -194,6 +247,22 @@
             document.getElementById('content').style.display = 'block';
         }
 
+        // --- HÀM LIGHTBOX (PHÓNG TO QR) ---
+        function openLightbox(event) {
+            event.stopPropagation(); // Ngăn click lan ra body
+            var imgSrc = document.querySelector('.qr-img').src;
+            var lightbox = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightbox-img');
+            
+            lightboxImg.src = imgSrc;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // --- HIỆU ỨNG HOA & PHÁO ---
         function createFlower() {
             const flower = document.createElement('div');
             flower.className = 'flower';
@@ -203,7 +272,6 @@
             const duration = Math.random() * 5 + 5;
             flower.style.animation = `fall ${duration}s linear forwards`;
             document.body.appendChild(flower);
-            
             const style = document.createElement('style');
             style.innerHTML = `@keyframes fall { to { transform: translateY(110vh) rotate(${Math.random() * 360}deg); } }`;
             document.head.appendChild(style);
@@ -225,8 +293,7 @@
                 particle.className = 'firework-particle';
                 particle.style.backgroundColor = color;
                 const size = Math.random() * 3 + 2 + 'px';
-                particle.style.width = size;
-                particle.style.height = size;
+                particle.style.width = size; particle.style.height = size;
                 particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
                 
                 const angle = (i / 50) * 360 * (Math.PI / 180);
@@ -234,8 +301,7 @@
                 const x = Math.cos(angle) * distance + 'px';
                 const y = Math.sin(angle) * distance + 'px';
                 
-                particle.style.setProperty('--x', x);
-                particle.style.setProperty('--y', y);
+                particle.style.setProperty('--x', x); particle.style.setProperty('--y', y);
                 shell.appendChild(particle);
             }
             setTimeout(() => { shell.remove(); }, 1200);
