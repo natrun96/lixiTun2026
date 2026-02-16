@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Năm Mới Bính Ngọ 2026</title>
+    <style>
+        body {
+            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
+            height: 100vh; background: #d41414; font-family: 'Arial', sans-serif;
+            overflow: hidden; text-align: center; color: white;
+        }
+        /* Hiệu ứng bao lì xì */
+        #envelope {
+            width: 250px; height: 350px; background: #ff2e2e; border: 4px solid #ffcc00;
+            border-radius: 15px; cursor: pointer; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.3s; z-index: 10;
+        }
+        #envelope:hover { transform: scale(1.05); }
+        /* Nội dung sau khi mở */
+        #content {
+            display: none; background: rgba(255, 255, 255, 0.95); padding: 30px;
+            border-radius: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            max-width: 400px; animation: fadeIn 1s; z-index: 10; color: #333;
+        }
+        .qr-code { width: 220px; height: 220px; margin-top: 20px; border: 4px solid #ffcc00; border-radius: 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Hiệu ứng hoa rơi */
+        .flower { position: absolute; color: #ffcc00; pointer-events: none; z-index: 1; }
+    </style>
+</head>
+<body>
+
+    <div id="envelope" onclick="openGift()">
+        <div style="font-size: 80px;">🧧</div>
+        <h2 style="color: #ffcc00;">Nhấn để nhận <br> Lì xì Tết 2026!</h2>
+    </div>
+
+    <div id="content">
+        <h1 style="color: #d41414;">Chúc Mừng Năm Mới! 🌸</h1>
+        <p>Chúc người ấy một năm Bính Ngọ vạn sự như ý, sức khỏe dồi dào và luôn hạnh phúc nhé!</p>
+        <p><b>Lì xì lấy may ở đây nè:</b></p>
+        <img src="qr-viettel.jpg" alt="Mã QR Lì Xì" class="qr-code">
+        <p style="font-size: 14px; color: #888;">(Quét mã Viettel Money để nhận lì xì nha! ✨)</p>
+    </div>
+
+    <audio id="tetMusic" loop>
+        <source src="nhac-tet.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function openGift() {
+            document.getElementById('envelope').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+            document.getElementById('tetMusic').play();
+            setInterval(createFlower, 300);
+        }
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.innerHTML = '🌸';
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.top = '-20px';
+            flower.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(flower);
+            
+            const duration = 5000;
+            flower.animate([
+                { top: '-20px', transform: 'rotate(0deg)' },
+                { top: '100vh', transform: `rotate(${Math.random() * 360}deg) translateX(${Math.random() * 100 - 50}px)` }
+            ], { duration: duration, easing: 'linear' });
+
+            setTimeout(() => flower.remove(), duration);
+        }
+    </script>
+</body>
+</html>
