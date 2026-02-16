@@ -17,13 +17,13 @@
 
         /* --- 2. NGỰA PHI --- */
         .horse-container {
-            position: absolute; bottom: 10px; left: -300px;
+            position: absolute; bottom: 15px; left: -300px;
             z-index: 5; pointer-events: none;
             display: flex; gap: -20px;
-            animation: runAcross 10s linear infinite;
+            animation: runAcross 7s linear infinite;
         }
         .horse-unit {
-            font-size: 60px; display: inline-block;
+            font-size: 80px; display: inline-block;
             transform: scaleX(-1);
             filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.5));
         }
@@ -37,7 +37,7 @@
         /* --- 3. NÚT LOA --- */
         .sound-control {
             position: fixed; top: 20px; right: 20px;
-            width: 40px; height: 40px;
+            width: 25px; height: 25px;
             background: rgba(0, 0, 0, 0.5); border: 2px solid #ffd700; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             font-size: 20px; cursor: pointer; z-index: 100;
@@ -47,7 +47,7 @@
 
         /* --- 4. BAO LÌ XÌ --- */
         #envelope {
-            width: 280px; height: 400px;
+            width: 300px; height: 450px;
             background: linear-gradient(to bottom, #b30000, #e60000);
             border: 4px solid #ffd700; border-radius: 20px;
             cursor: pointer; display: flex; flex-direction: column;
@@ -58,8 +58,8 @@
         }
         #envelope:hover { transform: scale(1.05); }
         .envelope-icon { font-size: 80px; margin-bottom: -10px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3)); }
-        .year-text { font-size: 50px; font-weight: 900; color: #ffd700; text-shadow: 3px 3px 0px #8b0000; font-family: 'Arial Black', sans-serif; margin-bottom: 10px; }
-        .click-hint { font-size: 18px; font-weight: bold; margin-top: 10px; animation: blink 1.5s infinite; }
+        .year-text { font-size: 35px; font-weight: 900; color: #ffd700; text-shadow: 3px 3px 0px #8b0000; font-family: 'Arial Black', sans-serif; margin-bottom: 10px; }
+        .click-hint { font-size: 18px; font-weight: bold; margin-top: 20px; animation: blink 1.5s infinite; }
         @keyframes blink { 50% { opacity: 0.5; } }
 
         /* --- 5. NỘI DUNG CHÍNH --- */
@@ -80,13 +80,23 @@
         
         /* CSS CHO LỜI CHÚC & BÚT */
         .wishes { 
-            font-size: 15px; line-height: 1.6; color: #333; font-style: italic; font-weight: 600; 
+            font-size: 16px; line-height: 1.6; color: #333; font-style: italic; font-weight: 600; 
             background: #fff; padding: 15px; border-radius: 10px; border: 1px dashed #d00000; margin-bottom: 20px;
-            text-align: left; /* Căn trái để hiệu ứng viết chữ đẹp hơn */
-            min-height: 160px; /* Tăng chiều cao khung vì nội dung dài hơn */
-            overflow-y: auto; /* Nếu dài quá thì cuộn */
+            text-align: left;
         }
         
+        /* CSS CHO PHẦN CHỮ ĐẶC BIỆT KHI VIẾT RA */
+        .highlight-text {
+            display: block; /* Xuống dòng */
+            text-align: center; /* CĂN GIỮA - YÊU CẦU MỚI */
+            font-size: 26px; /* Chữ to hơn */
+            font-weight: bold; 
+            color: #d00000; 
+            font-style: italic; 
+            margin-top: 15px; 
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.5);
+        }
+
         .writing-pen {
             display: inline-block; font-size: 20px;
             margin-left: 5px;
@@ -273,8 +283,8 @@
             <div class="card-body">
                 <div class="fortune-rank">Thượng Thượng Cát</div>
                 <div class="fortune-content">
-                    <p><b>🌸 Sự Nghiệp:</b><br>Quý nhân phù trợ, thăng tiến.</p>
-                    <p><b>❤️ Tình Duyên:</b><br>Viên mãn, hạnh phúc trọn vẹn.</p>
+                    <p><b>🌸 Sự Nghiệp:</b><br>Quý nhân phù trợ, suôn sẻ.</p>
+                    <p><b>💪 Sức Khỏe:</b><br>Dồi dào, dẻo dai, bình an.</p>
                     <p><b>💰 Tài Lộc:</b><br>Tiền vào như nước, sung túc.</p>
                 </div>
                 <div class="poem">"Bính Ngọ năm mới phát tài<br>Bình an, may mắn, lộc lai đầy nhà"</div>
@@ -303,12 +313,12 @@
 
     <div id="envelope" onclick="openGift()">
         <div class="envelope-icon">🧧</div>
-        <div class="year-text">2026</div>
-        <div class="click-hint">Ấn vào đây để nhận <br> điều bất ngờ nha ^^</div>
+        <div class="year-text">Xuân Bính Ngọ<br>2026</div>
+        <div class="click-hint">Ấn vào đây <br> để nhận lộc đầu năm nha </div>
     </div>
 
     <div id="content">
-        <h1 class="title-tet">Chúc Mừng Năm Mới 2026!</h1>
+        <h1 class="title-tet">Chúc Mừng Năm Mới<br>Xuân Bính Ngọ 2026!</h1>
         <div class="horse-icons-top">🐎 🐎 🐎</div>
         
         <div class="wishes">
@@ -330,10 +340,15 @@
         var soundBtn = document.getElementById('soundBtn');
         var isPlaying = false;
 
-        // --- CẤU HÌNH NỘI DUNG MỚI (CÓ ICON BUỒN) ---
-        const fullText = "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi. Cho anh xin lỗi vì những lúc đã không giữ được bình tĩnh, nói năng và hành động thiếu kiểm soát khiến em phải suy nghĩ, phải buồn 😔. Xin lỗi em nhiều !!!";
+        // --- CẤU HÌNH NỘI DUNG 2 PHẦN ---
+        // Phần 1: Chữ bình thường
+        const textPart1 = "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi! Anh xin lỗi em nhiều !!!";
+        // Phần 2: Chữ to, đỏ, đậm, căn giữa
+        const textPart2 = "2026 - Thành công rực rỡ";
+        
         const typeSpeed = 50; 
         let charIndex = 0;
+        let isTypingPart2 = false; 
 
         window.onload = function() {
             setInterval(createFlower, 350);
@@ -362,7 +377,7 @@
             }
         }
 
-        // --- HÀM MỞ QUÀ & CHẠY CHỮ ---
+        // --- HÀM CHẠY CHỮ THÔNG MINH ---
         function openGift() {
             playAudioForce();
             document.getElementById('envelope').style.display = 'none';
@@ -373,13 +388,46 @@
         }
 
         function typeWriter() {
-            if (charIndex < fullText.length) {
-                document.getElementById("type-text").innerHTML += fullText.charAt(charIndex);
-                charIndex++;
-                setTimeout(typeWriter, typeSpeed);
-            } else {
-                // Viết xong thì ẩn bút đi
-                document.getElementById("writing-pen").style.display = "none";
+            const container = document.getElementById("type-text");
+            const pen = document.getElementById("writing-pen");
+
+            // Giai đoạn 1: Viết chữ thường
+            if (!isTypingPart2) {
+                if (charIndex < textPart1.length) {
+                    container.innerHTML += textPart1.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, typeSpeed);
+                } else {
+                    // Hết phần 1 -> Chuyển sang phần 2
+                    isTypingPart2 = true;
+                    charIndex = 0; 
+                    
+                    // Tạo span mới cho phần 2
+                    const newSpan = document.createElement("span");
+                    newSpan.className = "highlight-text"; 
+                    newSpan.id = "highlight-span";
+                    container.appendChild(newSpan); 
+                    
+                    // Di chuyển bút vào trong span mới để nó chạy theo chữ căn giữa
+                    newSpan.appendChild(pen);
+                    
+                    setTimeout(typeWriter, typeSpeed);
+                }
+            } 
+            // Giai đoạn 2: Viết chữ to đỏ căn giữa
+            else {
+                const highlightSpan = document.getElementById("highlight-span");
+                if (charIndex < textPart2.length) {
+                    const char = textPart2.charAt(charIndex);
+                    const textNode = document.createTextNode(char);
+                    // Chèn chữ vào trước cây bút
+                    highlightSpan.insertBefore(textNode, pen);
+                    charIndex++;
+                    setTimeout(typeWriter, typeSpeed);
+                } else {
+                    // Viết xong -> Ẩn bút
+                    pen.style.display = "none";
+                }
             }
         }
 
